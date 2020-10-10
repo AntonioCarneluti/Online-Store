@@ -1,9 +1,8 @@
 package com.sda.onlinestore.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
 public class OrderLineModel {
@@ -15,6 +14,17 @@ public class OrderLineModel {
 
     private double price;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("orderLineModels")
+    private OrderModel orderModel;
+
+    public OrderModel getOrderModel() {
+        return orderModel;
+    }
+
+    public void setOrderModel(OrderModel orderModel) {
+        this.orderModel = orderModel;
+    }
 
     public Long getId() {
         return id;
