@@ -14,19 +14,11 @@ public class OrderLineModel {
 
     private double price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("orderLineModels")
-    private OrderModel orderModel;
+
 
     public OrderLineModel(){};
 
-    public OrderModel getOrderModel() {
-        return orderModel;
-    }
 
-    public void setOrderModel(OrderModel orderModel) {
-        this.orderModel = orderModel;
-    }
 
     public Long getId() {
         return id;

@@ -45,8 +45,8 @@ public class OrderModel {
         this.deliveryAddress = deliveryAddress;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderModel", orphanRemoval = false )
-    @JsonIgnoreProperties("orderModel")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true )
+
     private List<OrderLineModel> orderLineModels = new ArrayList<>();
 
     public  OrderModel(){};
