@@ -12,13 +12,16 @@ public class UserModel {
     private Long id;
     private String email;
     private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     private AdressModel adressModel;
+
     private String logo;
     private String channel;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("userList")
-    private UserRoleModel userRoleModel;
+    private UserRole userRole;
 
     public UserModel() {
     }
@@ -61,5 +64,21 @@ public class UserModel {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 }

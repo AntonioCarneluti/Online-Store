@@ -57,4 +57,12 @@ public class AdressModel {
     public void setZipCode(Long zipCode) {
         this.zipCode = zipCode;
     }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
 }
