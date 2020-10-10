@@ -43,4 +43,5 @@ public class UserRole {
     public void setUserModelList(List<UserModel> userModelList) {
         this.userModelList = userModelList;
     }
+
 }
