@@ -14,6 +14,9 @@ public class OrderLineModel {
 
     private double price;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProductModel productModel;
+
 
 
     public OrderLineModel(){};
@@ -42,5 +45,12 @@ public class OrderLineModel {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public ProductModel getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(ProductModel productModel) {
+        this.productModel = productModel;
     }
 }
