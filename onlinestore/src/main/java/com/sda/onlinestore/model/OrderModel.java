@@ -29,27 +29,21 @@ public class OrderModel {
     @OneToOne
     private AddressModel deliveryAddress;
 
-    public AddressModel getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(AddressModel userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public AddressModel getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(AddressModel deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
+    @OneToOne
+    private UserModel userModel;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true )
-
     private List<OrderLineModel> orderLineModels = new ArrayList<>();
 
     public  OrderModel(){};
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
 
     public Long getId() {
         return id;
@@ -98,4 +92,20 @@ public class OrderModel {
     public void setStatus(Status status) {
         this.status = status;
     }
+    public AddressModel getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(AddressModel userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public AddressModel getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(AddressModel deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
 }
