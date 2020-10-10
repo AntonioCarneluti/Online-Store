@@ -18,6 +18,8 @@ public class OrderLineModel {
     @JsonIgnoreProperties("orderLineModels")
     private OrderModel orderModel;
 
+    public OrderLineModel(){};
+
     public OrderModel getOrderModel() {
         return orderModel;
     }

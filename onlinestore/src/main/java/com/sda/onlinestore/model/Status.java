@@ -2,5 +2,5 @@ package com.sda.onlinestore.model;
 
 public enum Status {
 
-    CONFIRMED, NOTCONFIRMED;
+    CONFIRMED, NOT_CONFIRMED;
 }

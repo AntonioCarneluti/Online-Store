@@ -30,6 +30,8 @@ public class OrderModel {
         this.status = status;
     }
 
+    public  OrderModel(){};
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderModel", orphanRemoval = false )
     @JsonIgnoreProperties("orderModel")
     private List<OrderLineModel> orderLineModels = new ArrayList<>();
