@@ -21,8 +21,9 @@ public class ProductModel {
     @JsonIgnoreProperties("productModelList")
     private ManufacturerModel manufacturerModel;
 
-    //@ManyToOne
-    //private CategoryModel categoryModel;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("productModelList")
+    private CategoryModel categoryModel;
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
@@ -85,5 +86,13 @@ public class ProductModel {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+    }
+
+    public CategoryModel getCategoryModel() {
+        return categoryModel;
+    }
+
+    public void setCategoryModel(CategoryModel categoryModel) {
+        this.categoryModel = categoryModel;
     }
 }

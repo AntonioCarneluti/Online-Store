@@ -1,5 +1,7 @@
 package com.sda.onlinestore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,13 @@ public class CategoryModel {
     @OneToMany(mappedBy = "parent")
     private List<CategoryModel> children = new ArrayList<>();
 
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryModel", orphanRemoval = false)
+    @JsonIgnoreProperties("categoryModel")
+    private List<ProductModel> productModelList = new ArrayList();
+
+    public CategoryModel() {
+    }
 
     public Long getId() {
         return id;
@@ -47,5 +56,13 @@ public class CategoryModel {
 
     public void setChildren(List<CategoryModel> children) {
         this.children = children;
+    }
+
+    public List<ProductModel> getProductModelList() {
+        return productModelList;
+    }
+
+    public void setProductModelList(List<ProductModel> productModelList) {
+        this.productModelList = productModelList;
     }
 }

@@ -46,5 +46,7 @@ public class ManufacturerModel {
     public void setProductModelList(List<ProductModel> productModel) {
         this.productModelList = productModel;
     }
+
+
 }
 
