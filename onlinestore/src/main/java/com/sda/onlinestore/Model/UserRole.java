@@ -3,6 +3,7 @@ package com.sda.onlinestore.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class UserRole {
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole", orphanRemoval = false)
     @JsonIgnoreProperties("userRole")
-    private List<UserModel> userModel;
+    private List<UserModel> userModelList = new ArrayList();
 
     public UserRole() {
     }
@@ -35,11 +36,11 @@ public class UserRole {
         this.name = name;
     }
 
-    public List<UserModel> getUserModel() {
-        return userModel;
+    public List<UserModel> getUserModelList() {
+        return userModelList;
     }
 
-    public void setUserModel(List<UserModel> userModel) {
-        this.userModel = userModel;
+    public void setUserModelList(List<UserModel> userModelList) {
+        this.userModelList = userModelList;
     }
 }

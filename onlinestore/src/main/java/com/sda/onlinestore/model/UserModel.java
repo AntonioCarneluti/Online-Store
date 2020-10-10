@@ -14,13 +14,14 @@ public class UserModel {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private AdressModel adressModel;
+    @JsonIgnoreProperties("userModel")
+    private AddressModel addressModel;
 
     private String logo;
     private String channel;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("userList")
+    @JsonIgnoreProperties("userModelList")
     private UserRole userRole;
 
     public UserModel() {
@@ -50,12 +51,12 @@ public class UserModel {
         this.password = password;
     }
 
-    public AdressModel getAdressModel() {
-        return adressModel;
+    public AddressModel getAdressModel() {
+        return addressModel;
     }
 
-    public void setAdressModel(AdressModel adressModel) {
-        this.adressModel = adressModel;
+    public void setAdressModel(AddressModel addressModel) {
+        this.addressModel = addressModel;
     }
 
     public String getLogo() {

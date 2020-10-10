@@ -3,6 +3,7 @@ package com.sda.onlinestore.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class ManufacturerModel {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturerModel", orphanRemoval = false)
     @JsonIgnoreProperties("manufacturerModel")
-    private List<ProductModel> productModelList;
+    private List<ProductModel> productModelList = new ArrayList();
 
     public ManufacturerModel() {
     }

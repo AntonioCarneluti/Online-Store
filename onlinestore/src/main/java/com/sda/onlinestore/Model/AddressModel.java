@@ -1,10 +1,12 @@
 package com.sda.onlinestore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-//country, city, street, zipcode
+
 @Entity
-@Table(name = "Adress")
-public class AdressModel {
+@Table(name = "Address")
+public class AddressModel {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
@@ -13,9 +15,10 @@ public class AdressModel {
     private String street;
     private Long zipCode;
     @OneToOne(mappedBy = "adressModel")
+    @JsonIgnoreProperties("adressModel")
     private UserModel userModel;
 
-    public AdressModel() {
+    public AddressModel() {
     }
 
     public Long getId() {
