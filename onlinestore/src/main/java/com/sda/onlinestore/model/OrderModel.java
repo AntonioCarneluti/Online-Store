@@ -23,19 +23,27 @@ public class OrderModel {
     @Enumerated(EnumType.STRING)
     private  Status status;
 
-    public AdressModel getUserAddress() {
+    @OneToOne
+    private AddressModel userAddress;
+
+    @OneToOne
+    private AddressModel deliveryAddress;
+
+    public AddressModel getUserAddress() {
         return userAddress;
     }
 
-    public void setUserAddress(AdressModel userAddress) {
+    public void setUserAddress(AddressModel userAddress) {
         this.userAddress = userAddress;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("orderModel")
-    private AdressModel userAddress;
+    public AddressModel getDeliveryAddress() {
+        return deliveryAddress;
+    }
 
-    //private AdressModel deliveryAddress;
+    public void setDeliveryAddress(AddressModel deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderModel", orphanRemoval = false )
     @JsonIgnoreProperties("orderModel")
