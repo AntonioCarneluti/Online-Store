@@ -14,8 +14,8 @@ public class AddressModel {
     private String city;
     private String street;
     private Long zipCode;
-    @OneToOne(mappedBy = "adressModel")
-    @JsonIgnoreProperties("adressModel")
+    @OneToOne(mappedBy = "addressModel")
+    @JsonIgnoreProperties("addressModel")
     private UserModel userModel;
 
     public AddressModel() {
