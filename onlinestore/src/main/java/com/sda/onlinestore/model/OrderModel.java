@@ -1,6 +1,7 @@
 package com.sda.onlinestore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -22,19 +23,25 @@ public class OrderModel {
     @Enumerated(EnumType.STRING)
     private  Status status;
 
-    public Status getStatus() {
-        return status;
+    public AdressModel getUserAddress() {
+        return userAddress;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setUserAddress(AdressModel userAddress) {
+        this.userAddress = userAddress;
     }
 
-    public  OrderModel(){};
+    @OneToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("orderModel")
+    private AdressModel userAddress;
+
+    //private AdressModel deliveryAddress;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderModel", orphanRemoval = false )
     @JsonIgnoreProperties("orderModel")
     private List<OrderLineModel> orderLineModels = new ArrayList<>();
+
+    public  OrderModel(){};
 
     public Long getId() {
         return id;
@@ -74,5 +81,13 @@ public class OrderModel {
 
     public void setOrderLineModels(List<OrderLineModel> orderLineModels) {
         this.orderLineModels = orderLineModels;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
