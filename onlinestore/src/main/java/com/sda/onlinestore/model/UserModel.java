@@ -51,11 +51,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public AddressModel getAdressModel() {
+    public AddressModel getAddressModel() {
         return addressModel;
     }
 
-    public void setAdressModel(AddressModel addressModel) {
+    public void setAddressModel(AddressModel addressModel) {
         this.addressModel = addressModel;
     }
 
