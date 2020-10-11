@@ -35,7 +35,7 @@ public class ManufacturerController {
     }
 
 
-    @DeleteMapping("/deleteManufacturers/{id}")
+    @DeleteMapping("/deleteManufacturer/{id}")
     public void deleteManufacturer(@PathVariable(name = "id") Long id){
         manufacturerService.deleteProduct(id);
     }
