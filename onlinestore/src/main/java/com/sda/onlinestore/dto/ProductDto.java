@@ -7,19 +7,17 @@ public class ProductDto {
 
     private Long id;
     private String name;
-    private String description;
-    private String thumbnail;
     private double price;
-    private String productType;
     private ManufacturerDto manufacturerDto;
     private CategoryDto categoryDto;
 
-    public String getProductType() {
-        return productType;
+
+    public double getPrice() {
+        return price;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public CategoryDto getCategoryDto() {
@@ -38,29 +36,6 @@ public class ProductDto {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public ManufacturerDto getManufacturerDto() {
         return manufacturerDto;

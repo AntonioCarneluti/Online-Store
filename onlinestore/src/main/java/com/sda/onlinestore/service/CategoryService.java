@@ -16,23 +16,31 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void addCategory(CategoryDto categoryDto){
+    public void addCategory(CategoryDto categoryDto) {
         CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setId(categoryDto.getId());
         categoryModel.setName(categoryDto.getName());
+
+        CategoryDto parentDto = categoryDto.getParent();
+        if (parentDto != null) {
+            Optional<CategoryModel> parentCategoryModelOptional = categoryRepository.findById(parentDto.getId());
+            if (parentCategoryModelOptional.isPresent()) {
+                CategoryModel parentCategoryModel = parentCategoryModelOptional.get();
+                categoryModel.setParent(parentCategoryModel);
+            }
+        }
         categoryRepository.save(categoryModel);
     }
 
-    public List<CategoryDto> getCategories(){
+    public List<CategoryDto> getCategories() {
         List<CategoryModel> categoryModelList = categoryRepository.findAll();
         List<CategoryDto> categoryDtoList = new ArrayList<>();
-        for (CategoryModel categoryModel: categoryModelList){
+        for (CategoryModel categoryModel : categoryModelList) {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(categoryModel.getId());
             categoryDto.setName(categoryModel.getName());
             List<CategoryModel> children = categoryModel.getChildren();
             List<CategoryDto> childrenDto = new ArrayList<>();
-            for(CategoryModel child: children){
+            for (CategoryModel child : children) {
                 CategoryDto childDto = new CategoryDto();
                 childDto.setId(child.getId());
                 childDto.setName(child.getName());
@@ -44,25 +52,25 @@ public class CategoryService {
         return categoryDtoList;
     }
 
-    public void updateCategory(CategoryDto categoryDto){
+    public void updateCategory(CategoryDto categoryDto) {
         Optional<CategoryModel> optionalCategoryModel = categoryRepository.findById(categoryDto.getId());
-        if(optionalCategoryModel.isPresent()){
-            CategoryModel categoryModel = new CategoryModel();
+        if (optionalCategoryModel.isPresent()) {
+            CategoryModel categoryModel = optionalCategoryModel.get();
             categoryModel.setName(categoryDto.getName());
             categoryRepository.save(categoryModel);
         }
     }
 
-    public CategoryDto findCategoryById(Long id){
+    public CategoryDto findCategoryById(Long id) {
         Optional<CategoryModel> optionalCategoryModel = categoryRepository.findById(id);
-        if (optionalCategoryModel.isPresent()){
+        if (optionalCategoryModel.isPresent()) {
             CategoryModel categoryModel = optionalCategoryModel.get();
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(categoryModel.getId());
             categoryDto.setName(categoryModel.getName());
             List<CategoryModel> children = categoryModel.getChildren();
             List<CategoryDto> childrenDto = new ArrayList<>();
-            for(CategoryModel child: children){
+            for (CategoryModel child : children) {
                 CategoryDto childDto = new CategoryDto();
                 childDto.setId(child.getId());
                 childDto.setName(child.getName());
@@ -74,7 +82,9 @@ public class CategoryService {
         return null;
     }
 
-    public void deleteCategory(Long id){
+    public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
     }
+
+
 }

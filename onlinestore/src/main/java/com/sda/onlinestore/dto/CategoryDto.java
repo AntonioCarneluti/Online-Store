@@ -6,6 +6,7 @@ public class CategoryDto {
     private Long id;
     private String name;
     private List<CategoryDto> children;
+    private CategoryDto parent;
 
     public Long getId() {
         return id;
@@ -29,5 +30,13 @@ public class CategoryDto {
 
     public void setChildren(List<CategoryDto> children) {
         this.children = children;
+    }
+
+    public CategoryDto getParent() {
+        return parent;
+    }
+
+    public void setParent(CategoryDto parent) {
+        this.parent = parent;
     }
 }

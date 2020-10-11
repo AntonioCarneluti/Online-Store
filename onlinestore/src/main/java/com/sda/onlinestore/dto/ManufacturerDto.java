@@ -8,7 +8,6 @@ import java.util.List;
 public class ManufacturerDto {
     private Long id;
     private String name;
-    private List<ProductDto> productDtoList = new ArrayList();
 
 
     public Long getId() {
@@ -27,11 +26,4 @@ public class ManufacturerDto {
         this.name = name;
     }
 
-    public List<ProductDto> getProductDtoList() {
-        return productDtoList;
-    }
-
-    public void setProductDtoList(List<ProductDto> productDtoList) {
-        this.productDtoList = productDtoList;
-    }
 }
