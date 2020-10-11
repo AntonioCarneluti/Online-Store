@@ -7,6 +7,7 @@ import com.sda.onlinestore.model.OrderLineModel;
 import com.sda.onlinestore.model.OrderModel;
 import com.sda.onlinestore.model.ProductModel;
 import com.sda.onlinestore.repository.OrderRepository;
+import com.sda.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
 
     /*public void addOrder(OrderDto orderDto){
@@ -88,5 +92,18 @@ public class OrderService {
         orderDto.setId(orderModel.getId());
 
         return orderDto;
+    }
+
+    public void addToCart(String username, Long id){
+        OrderModel orderModel = orderRepository.findByUserName(username);
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        OrderLineModel orderLineModel = new OrderLineModel();
+
+        if(productModel.isPresent()){
+            ProductModel foundProductModel = productModel.get();
+            orderLineModel.setProductModel(foundProductModel);
+        }
+
+
     }
 }
