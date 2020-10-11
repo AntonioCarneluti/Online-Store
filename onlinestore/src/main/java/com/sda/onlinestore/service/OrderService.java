@@ -69,6 +69,31 @@ public class OrderService {
             orderDto.setId(foundOrderModel.getId());
             orderDto.setTotalCost(foundOrderModel.getTotalCost());
 
+            List<OrderLineModel> orderLineModels = foundOrderModel.getOrderLineModels();
+            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
+
+            for(OrderLineModel orderLineModel: orderLineModels){
+                OrderLineDto orderLineDto = new OrderLineDto();
+                orderLineDto.setId((orderLineModel.getId()));
+                orderLineDto.setPrice(orderLineModel.getPrice());
+                orderLineDto.setQuantity(orderLineModel.getQuantity());
+
+                ProductModel productModel = orderLineModel.getProductModel();
+                ProductDto productDto = new ProductDto();
+
+                productDto.setId(productModel.getId());
+                productDto.setPrice(productModel.getPrice());
+                productDto.setName(productModel.getName());
+
+                orderLineDto.setProductDto(productDto);
+                orderLineDtoList.add(orderLineDto);
+            }
+            orderDto.setOrderLineDtoModels(orderLineDtoList);
+
+
+
+
+
             return  orderDto;
         }
         return  null;
@@ -107,16 +132,23 @@ public class OrderService {
         return orderDto;
     }
 
-    /*public void addToCart(String username, Long id){
+    public void addToCart(String username, Long id){
         OrderModel orderModel = orderRepository.findByUserName(username);
         Optional<ProductModel> productModel = productRepository.findById(id);
-        OrderLineModel orderLineModel = new OrderLineModel();
+        List<OrderLineModel> orderLineModelList =  orderModel.getOrderLineModels();
 
         if(productModel.isPresent()){
-            ProductModel foundProductModel = productModel.get();
-            orderLineModel.setProductModel(foundProductModel);
+           // ProductModel foundProductModel = productModel.get();
+            for( OrderLineModel orderLineModel1:orderLineModelList ){
+                if(orderLineModel1.getProductModel().getId().equals(id)){
+                    orderLineModel1.setQuantity(orderLineModel1.getQuantity() + 1);
+                }
+
+                
+            }
+
         }
 
 
-    }*/
+    }
 }
