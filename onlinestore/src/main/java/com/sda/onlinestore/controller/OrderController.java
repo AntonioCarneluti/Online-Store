@@ -9,33 +9,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/orders")
+    @GetMapping("/getOrders")
     public List<OrderDto> getOrders(){
         return orderService.getOrders();
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/getOrderById/{id}")
     public OrderDto getOrder(@PathVariable(name = "id") Long idOrder){
         return orderService.findById(idOrder);
     }
 
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/deleteOrder/{id}")
     public void deleteOrder(@PathVariable(name = "id") Long idOrder){
         orderService.removeOrder(idOrder);
     }
 
-    @GetMapping("/orders/getbyusername/{username}")
+    @GetMapping("/orders/getByUsername/{username}")
     public OrderDto getByUsername(@PathVariable(name = "username") String username){
        return orderService.findByUserName(username);
     }
 
-   /* @PostMapping("/orders")
-    public void addOrder(@RequestBody OrderModel orderModel){
-        orderService.addToCart();
-    }*/
+    @PostMapping("/addOrder")
+    public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
+        orderService.addToCart(username, idProduct);
+    }
+
+    @PutMapping("/updateOrder")
+    public void updateOrder(@RequestBody OrderDto orderDto){
+        orderService.updateCart(orderDto);
+    }
 }
