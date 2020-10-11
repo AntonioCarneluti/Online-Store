@@ -78,5 +78,15 @@ public class OrderService {
         return  null;
     }
 
-    
+    public void removeOrder (Long id){
+        orderRepository.deleteById(id);
+    }
+
+    public OrderDto findByUserName(String username){
+        OrderModel orderModel = orderRepository.findByUserName(username);
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(orderModel.getId());
+
+        return orderDto;
+    }
 }
