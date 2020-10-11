@@ -35,15 +35,13 @@ public class ManufacturerController {
     }
 
 
-    @DeleteMapping("/manufacturers/{id}")
+    @DeleteMapping("/deleteManufacturers/{id}")
     public void deleteManufacturer(@PathVariable(name = "id") Long id){
         manufacturerService.deleteProduct(id);
     }
 
     @PutMapping("/updateManufacturer")
     public void updateManufacturer(@RequestBody ManufacturerDto manufacturerDto) {
-        ManufacturerDto updatedManufacturer = manufacturerService.findManufacturerById(manufacturerDto.getId());
-        updatedManufacturer.setName(manufacturerDto.getName());
-        manufacturerService.addManufacturer(updatedManufacturer);
+        manufacturerService.updateManufacturer(manufacturerDto);
     }
 }

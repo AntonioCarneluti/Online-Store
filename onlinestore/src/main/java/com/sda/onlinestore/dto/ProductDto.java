@@ -7,9 +7,26 @@ public class ProductDto {
 
     private Long id;
     private String name;
+    private double price;
     private ManufacturerDto manufacturerDto;
+    private CategoryDto categoryDto;
 
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public CategoryDto getCategoryDto() {
+        return categoryDto;
+    }
+
+    public void setCategoryDto(CategoryDto categoryDto) {
+        this.categoryDto = categoryDto;
+    }
 
     public Long getId() {
         return id;
