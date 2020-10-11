@@ -26,7 +26,7 @@ public class OrderService {
 
 
 
-    private List<OrderDto> getOrders(){
+    public List<OrderDto> getOrders(){
         List<OrderModel> orderModels = orderRepository.findAll();
         List<OrderDto> orderDtos = new ArrayList<>();
 
