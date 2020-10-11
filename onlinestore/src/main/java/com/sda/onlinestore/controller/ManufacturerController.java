@@ -29,7 +29,7 @@ public class ManufacturerController {
     }
 
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/getManufacturerById/{id}")
     public ManufacturerDto findByID(@PathVariable(name = "id") Long id){
         return manufacturerService.findManufacturerById(id);
     }

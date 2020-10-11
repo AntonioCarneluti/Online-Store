@@ -31,7 +31,7 @@ public class CategoryController {
         categoryService.updateCategory(categoryDto);
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/getCategoryById/{id}")
     public CategoryDto findByID(@PathVariable(name = "id") Long id) {
         return categoryService.findCategoryById(id);
     }
