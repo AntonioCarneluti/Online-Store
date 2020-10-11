@@ -83,6 +83,27 @@ public class OrderService {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(orderModel.getId());
 
+        List<OrderLineModel> orderLineModels = orderModel.getOrderLineModels();
+        List<OrderLineDto> orderLineDtoList = new ArrayList<>();
+
+        for(OrderLineModel orderLineModel: orderLineModels){
+            OrderLineDto orderLineDto = new OrderLineDto();
+            orderLineDto.setId((orderLineModel.getId()));
+            orderLineDto.setPrice(orderLineModel.getPrice());
+            orderLineDto.setQuantity(orderLineModel.getQuantity());
+
+            ProductModel productModel = orderLineModel.getProductModel();
+            ProductDto productDto = new ProductDto();
+
+            productDto.setId(productModel.getId());
+            productDto.setPrice(productModel.getPrice());
+            productDto.setName(productModel.getName());
+
+            orderLineDto.setProductDto(productDto);
+            orderLineDtoList.add(orderLineDto);
+        }
+        orderDto.setOrderLineDtoModels(orderLineDtoList);
+
         return orderDto;
     }
 
