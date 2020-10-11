@@ -11,10 +11,15 @@ public class OrderLineDto {
 
     private double price;
 
-    //am nevoie de ProductDto
+    private ProductDto productDto;
 
+    public ProductDto getProductDto() {
+        return productDto;
+    }
 
-
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
+    }
 
     public Long getId() {
         return id;
