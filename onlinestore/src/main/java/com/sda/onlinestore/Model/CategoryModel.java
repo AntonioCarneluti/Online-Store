@@ -13,7 +13,7 @@ public class CategoryModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private CategoryModel parent;
     @OneToMany(mappedBy = "parent")
     private List<CategoryModel> children = new ArrayList<>();
