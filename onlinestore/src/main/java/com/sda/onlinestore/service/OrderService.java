@@ -138,17 +138,19 @@ public class OrderService {
         List<OrderLineModel> orderLineModelList =  orderModel.getOrderLineModels();
 
         if(productModel.isPresent()){
-           // ProductModel foundProductModel = productModel.get();
+            ProductModel foundProductModel = productModel.get();
             for( OrderLineModel orderLineModel1:orderLineModelList ){
                 if(orderLineModel1.getProductModel().getId().equals(id)){
                     orderLineModel1.setQuantity(orderLineModel1.getQuantity() + 1);
+                    orderLineModel1.setPrice(orderLineModel1.getQuantity()* orderLineModel1.getProductModel().getPrice());
+                }else{
+                    orderLineModel1.setProductModel(foundProductModel);
+                    orderLineModel1.setQuantity(1);
+                    orderLineModel1.setPrice(orderLineModel1.getQuantity()* orderLineModel1.getProductModel().getPrice());
                 }
-
-                
+                orderModel.setOrderLineModels(orderLineModelList);
             }
-
         }
-
-
+        orderRepository.save(orderModel);
     }
 }
