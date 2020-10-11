@@ -25,14 +25,6 @@ public class OrderService {
     private ProductRepository productRepository;
 
 
-    /*public void addOrder(OrderDto orderDto){
-        OrderModel orderModel = new OrderModel();
-        orderModel.setTotalCost(orderDto.getTotalCost());
-
-        }*/
-
-        //orderModel.setOrderLineModels(orderDto.getOrderLineDtoModels());
-
 
     private List<OrderDto> getOrders(){
         List<OrderModel> orderModels = orderRepository.findAll();
@@ -44,7 +36,7 @@ public class OrderService {
             orderDto.setTotalCost(orderModel.getTotalCost());
 
             List<OrderLineModel> orderLineModels = orderModel.getOrderLineModels();
-            List<OrderDto> orderDtos1 = new ArrayList<>();
+            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
 
             for(OrderLineModel orderLineModel: orderLineModels){
                 OrderLineDto orderLineDto = new OrderLineDto();
@@ -60,9 +52,9 @@ public class OrderService {
                 productDto.setName(productModel.getName());
 
                 orderLineDto.setProductDto(productDto);
-                orderDtos1.add(orderDto);
+                orderLineDtoList.add(orderLineDto);
             }
-
+            orderDto.setOrderLineDtoModels(orderLineDtoList);
             orderDtos.add(orderDto);
         }
 
@@ -94,7 +86,7 @@ public class OrderService {
         return orderDto;
     }
 
-    public void addToCart(String username, Long id){
+    /*public void addToCart(String username, Long id){
         OrderModel orderModel = orderRepository.findByUserName(username);
         Optional<ProductModel> productModel = productRepository.findById(id);
         OrderLineModel orderLineModel = new OrderLineModel();
@@ -105,5 +97,5 @@ public class OrderService {
         }
 
 
-    }
+    }*/
 }
