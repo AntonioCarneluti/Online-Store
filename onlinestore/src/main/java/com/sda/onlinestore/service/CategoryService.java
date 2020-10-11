@@ -16,14 +16,14 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private void addCategory(CategoryDto categoryDto){
+    public void addCategory(CategoryDto categoryDto){
         CategoryModel categoryModel = new CategoryModel();
         categoryModel.setId(categoryDto.getId());
         categoryModel.setName(categoryDto.getName());
         categoryRepository.save(categoryModel);
     }
 
-    private List<CategoryDto> getCategories(){
+    public List<CategoryDto> getCategories(){
         List<CategoryModel> categoryModelList = categoryRepository.findAll();
         List<CategoryDto> categoryDtoList = new ArrayList<>();
         for (CategoryModel categoryModel: categoryModelList){
@@ -53,7 +53,7 @@ public class CategoryService {
         }
     }
 
-    private CategoryDto findCategoryById(Long id){
+    public CategoryDto findCategoryById(Long id){
         Optional<CategoryModel> optionalCategoryModel = categoryRepository.findById(id);
         if (optionalCategoryModel.isPresent()){
             CategoryModel categoryModel = optionalCategoryModel.get();
