@@ -80,7 +80,7 @@ public class ProductService {
             ManufacturerModel manufacturerModel = manufacturerRepository.findById(manufacturerDto.getId()).orElse(null);
             productModel.setManufacturerModel(manufacturerModel);
         }
-        
+
         CategoryDto categoryDto = productDto.getCategoryDto();
         if (categoryDto != null) {
             CategoryModel categoryModel = categoryRepository.findById(categoryDto.getId()).orElse(null);

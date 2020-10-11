@@ -20,7 +20,7 @@ public class ManufacturerService {
     private ManufacturerRepository manufacturerRepository;
 
     public List<ManufacturerDto> getManufacturers() {
-        List<ManufacturerModel> manufacturerModelList = new ArrayList<>();
+        List<ManufacturerModel> manufacturerModelList = manufacturerRepository.findAll();
         List<ManufacturerDto> manufacturerDtoList = new ArrayList<>();
 
         for (ManufacturerModel manufacturerModel : manufacturerModelList) {
