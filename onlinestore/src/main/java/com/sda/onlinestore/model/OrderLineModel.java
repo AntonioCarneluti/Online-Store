@@ -17,11 +17,7 @@ public class OrderLineModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private ProductModel productModel;
 
-
-
     public OrderLineModel(){};
-
-
 
     public Long getId() {
         return id;
