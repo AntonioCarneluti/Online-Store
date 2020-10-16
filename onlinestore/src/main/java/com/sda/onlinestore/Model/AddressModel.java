@@ -8,13 +8,13 @@ import javax.persistence.*;
 @Table(name = "Address")
 public class AddressModel {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String country;
     private String city;
     private String street;
     private Long zipCode;
-    @OneToOne(mappedBy = "addressModel")
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "addressModel")
     @JsonIgnoreProperties("addressModel")
     private UserModel userModel;
 
