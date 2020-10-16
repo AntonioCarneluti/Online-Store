@@ -27,11 +27,12 @@ public class UserService {
 
         AddressModel addressModel = new AddressModel();
         AddressDto addressDto = userDto.getAddressDto();
-        addressModel.setCountry(addressDto.getCountry());
-        addressModel.setCity(addressDto.getCity());
-        addressModel.setStreet(addressDto.getStreet());
-        addressModel.setZipCode(addressDto.getZipCode());
-
+        if(addressDto != null) {
+            addressModel.setCountry(addressDto.getCountry());
+            addressModel.setCity(addressDto.getCity());
+            addressModel.setStreet(addressDto.getStreet());
+            addressModel.setZipCode(addressDto.getZipCode());
+        }
         userModel.setAddressModel(addressModel);
         userRepository.save(userModel);
     }
@@ -49,11 +50,12 @@ public class UserService {
 
             AddressDto addressDto = new AddressDto();
             AddressModel addressModel = userModel.getAddressModel();
-            addressDto.setCountry(addressModel.getCountry());
-            addressDto.setCity(addressModel.getCity());
-            addressDto.setStreet(addressModel.getStreet());
-            addressDto.setZipCode(addressModel.getZipCode());
-
+            if(addressDto != null) {
+                addressDto.setCountry(addressModel.getCountry());
+                addressDto.setCity(addressModel.getCity());
+                addressDto.setStreet(addressModel.getStreet());
+                addressDto.setZipCode(addressModel.getZipCode());
+            }
             userDto.setAddressDto(addressDto);
             userDtoList.add(userDto);
         }
