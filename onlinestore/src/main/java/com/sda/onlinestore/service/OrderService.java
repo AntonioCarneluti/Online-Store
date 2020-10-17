@@ -151,7 +151,7 @@ public class OrderService {
             for (OrderLineModel orderLineModel : orderLineModels) {
                 if (orderLineModel.getProductModel().getId().equals(idProduct)) {
                     orderLineModel.setQuantity(orderLineModel.getQuantity() + 1);
-                    orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+
                     isAdded = true;
                 }
 
