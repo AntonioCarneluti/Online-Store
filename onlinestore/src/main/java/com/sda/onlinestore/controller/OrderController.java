@@ -35,7 +35,7 @@ public class OrderController {
        return orderService.findByUserName(username);
     }
 
-    @PostMapping("/addOrder")
+    @PostMapping("/addOrder/{username}/{idProduct}")
     public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
         orderService.addToCart(username, idProduct);
     }
