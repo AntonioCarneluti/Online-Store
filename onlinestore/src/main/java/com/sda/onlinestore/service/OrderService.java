@@ -154,15 +154,18 @@ public class OrderService {
 
                     isAdded = true;
                 }
+            }
 
                 if (!isAdded) {
+
+                    OrderLineModel orderLineModel = new OrderLineModel();
                     orderLineModel.setQuantity(1);
                     ProductModel productModel = productRepository.findById(idProduct).orElse(null);
                     orderLineModel.setProductModel(productModel);
                     orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
                     foundOrderModel.getOrderLineModels().add(orderLineModel);
                 }
-            }
+
             foundOrderModel.setTotalCost(totalCost(foundOrderModel.getOrderLineModels()));
             orderRepository.save(foundOrderModel);
         } else {
