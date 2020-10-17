@@ -25,6 +25,7 @@ public class ManufacturerService {
 
         for (ManufacturerModel manufacturerModel : manufacturerModelList) {
             ManufacturerDto manufacturerDto = new ManufacturerDto();
+            manufacturerDto.setId(manufacturerModel.getId());
             manufacturerDto.setName(manufacturerModel.getName());
 
 
@@ -39,7 +40,9 @@ public class ManufacturerService {
         if (optionalManufacturerModel.isPresent()) {
             ManufacturerModel manufacturerModel = optionalManufacturerModel.get();
             ManufacturerDto manufacturerDto = new ManufacturerDto();
+            manufacturerDto.setId(manufacturerModel.getId());
             manufacturerDto.setName(manufacturerModel.getName());
+
 
 
             return manufacturerDto;
@@ -61,6 +64,7 @@ public class ManufacturerService {
         Optional<ManufacturerModel> optionalManufacturerModel = manufacturerRepository.findById(manufacturerDto.getId());
         if (optionalManufacturerModel.isPresent()) {
             ManufacturerModel manufacturerModel = optionalManufacturerModel.get();
+            manufacturerDto.setId(manufacturerModel.getId());
             manufacturerModel.setName(manufacturerDto.getName());
             manufacturerRepository.save(manufacturerModel);
 

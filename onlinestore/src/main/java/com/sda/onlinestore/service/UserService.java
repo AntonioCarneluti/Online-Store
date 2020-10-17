@@ -51,6 +51,7 @@ public class UserService {
             AddressDto addressDto = new AddressDto();
             AddressModel addressModel = userModel.getAddressModel();
             if(addressDto != null) {
+                addressDto.setId(addressModel.getId());
                 addressDto.setCountry(addressModel.getCountry());
                 addressDto.setCity(addressModel.getCity());
                 addressDto.setStreet(addressModel.getStreet());
@@ -96,10 +97,13 @@ public class UserService {
 
             AddressDto addressDto = new AddressDto();
             AddressModel addressModel = userModel.getAddressModel();
-            addressDto.setCountry(addressModel.getCountry());
-            addressDto.setCity(addressModel.getCity());
-            addressDto.setStreet(addressModel.getStreet());
-            addressDto.setZipCode(addressModel.getZipCode());
+            if(addressDto != null) {
+                addressDto.setId(addressModel.getId());
+                addressDto.setCountry(addressModel.getCountry());
+                addressDto.setCity(addressModel.getCity());
+                addressDto.setStreet(addressModel.getStreet());
+                addressDto.setZipCode(addressModel.getZipCode());
+            }
 
             userDto.setAddressDto(addressDto);
             return userDto;

@@ -34,15 +34,17 @@ public class ProductService {
 
         for (ProductModel productModel : productModelList) {
             ProductDto productDto = new ProductDto();
+            productDto.setId(productModel.getId());
             productDto.setName(productModel.getName());
 
 
-            ManufacturerDto manufacturerDto = new ManufacturerDto();
-            ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
-            manufacturerDto.setName(manufacturerModel.getName());
+            if (productModel.getManufacturerModel() != null) {
+                ManufacturerDto manufacturerDto = new ManufacturerDto();
+                ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setName(manufacturerModel.getName());
+                productDto.setManufacturerDto(manufacturerDto);
+            }
 
-
-            productDto.setManufacturerDto(manufacturerDto);
 
             productDtoList.add(productDto);
 
@@ -55,15 +57,18 @@ public class ProductService {
         if (optionalProductModel.isPresent()) {
             ProductModel productModel = optionalProductModel.get();
             ProductDto productDto = new ProductDto();
+            productDto.setId(productModel.getId());
             productDto.setName(productModel.getName());
 
 
-            ManufacturerDto manufacturerDto = new ManufacturerDto();
-            ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
-            manufacturerDto.setName(manufacturerModel.getName());
+            if (productModel.getManufacturerModel() != null) {
+                ManufacturerDto manufacturerDto = new ManufacturerDto();
+                ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setName(manufacturerModel.getName());
 
 
-            productDto.setManufacturerDto(manufacturerDto);
+                productDto.setManufacturerDto(manufacturerDto);
+            }
 
             return productDto;
         }
@@ -97,6 +102,7 @@ public class ProductService {
         Optional<ProductModel> optionalProductModel = productRepository.findById(productDto.getId());
         if (optionalProductModel.isPresent()) {
             ProductModel productModel = optionalProductModel.get();
+            productDto.setId(productModel.getId());
             productModel.setName(productDto.getName());
             productModel.setPrice(productDto.getPrice());
             productRepository.save(productModel);
