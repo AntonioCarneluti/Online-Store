@@ -172,6 +172,7 @@ public class OrderService {
             OrderModel orderModel1 = new OrderModel();
             OrderLineModel orderLineModel = new OrderLineModel();
             orderLineModel.setQuantity(1);
+            orderModel1.setUserName(username);
             ProductModel productModel = productRepository.findById(idProduct).orElse(null);
             orderLineModel.setProductModel(productModel);
             orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());

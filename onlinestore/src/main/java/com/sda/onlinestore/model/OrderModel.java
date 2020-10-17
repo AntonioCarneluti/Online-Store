@@ -32,7 +32,7 @@ public class OrderModel {
     @OneToOne
     private UserModel userModel;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true )
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true )
     private List<OrderLineModel> orderLineModels = new ArrayList<>();
 
     public  OrderModel(){};
