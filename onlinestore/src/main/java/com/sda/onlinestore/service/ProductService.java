@@ -38,12 +38,13 @@ public class ProductService {
             productDto.setName(productModel.getName());
 
 
-            ManufacturerDto manufacturerDto = new ManufacturerDto();
-            ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
-            manufacturerDto.setName(manufacturerModel.getName());
+            if (productModel.getManufacturerModel() != null) {
+                ManufacturerDto manufacturerDto = new ManufacturerDto();
+                ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setName(manufacturerModel.getName());
+                productDto.setManufacturerDto(manufacturerDto);
+            }
 
-
-            productDto.setManufacturerDto(manufacturerDto);
 
             productDtoList.add(productDto);
 
@@ -60,13 +61,14 @@ public class ProductService {
             productDto.setName(productModel.getName());
 
 
-            ManufacturerDto manufacturerDto = new ManufacturerDto();
-            ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
-            manufacturerDto.setId(manufacturerModel.getId());
-            manufacturerDto.setName(manufacturerModel.getName());
+            if (productModel.getManufacturerModel() != null) {
+                ManufacturerDto manufacturerDto = new ManufacturerDto();
+                ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setName(manufacturerModel.getName());
 
 
-            productDto.setManufacturerDto(manufacturerDto);
+                productDto.setManufacturerDto(manufacturerDto);
+            }
 
             return productDto;
         }
