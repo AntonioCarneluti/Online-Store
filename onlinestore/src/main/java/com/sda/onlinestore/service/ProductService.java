@@ -45,6 +45,12 @@ public class ProductService {
                 manufacturerDto.setName(manufacturerModel.getName());
                 productDto.setManufacturerDto(manufacturerDto);
             }
+            if (productModel.getCategoryModel() != null) {
+                CategoryDto categoryDto = new CategoryDto();
+                CategoryModel categoryModel = productModel.getCategoryModel();
+                categoryDto.setName(categoryModel.getName());
+                productDto.setCategoryDto(categoryDto);
+            }
 
 
             productDtoList.add(productDto);
