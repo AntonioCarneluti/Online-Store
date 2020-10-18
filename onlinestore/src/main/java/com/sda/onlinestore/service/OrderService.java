@@ -6,6 +6,7 @@ import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.model.OrderLineModel;
 import com.sda.onlinestore.model.OrderModel;
 import com.sda.onlinestore.model.ProductModel;
+import com.sda.onlinestore.repository.OrderLineRepository;
 import com.sda.onlinestore.repository.OrderRepository;
 import com.sda.onlinestore.repository.ProductRepository;
 
@@ -25,6 +26,9 @@ public class OrderService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderLineRepository orderLineRepository;
 
 
     public List<OrderDto> getOrders() {
@@ -205,24 +209,26 @@ public class OrderService {
         orderRepository.save(orderModel);
     }
 */
-    public void updateCart(OrderDto orderDto) {
-        Optional<OrderModel> orderModel = orderRepository.findById(orderDto.getId());
+    public void updateCart(String username, Long orderLineID, int newQuantity) {
+        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
         if (orderModel.isPresent()) {
+
             OrderModel foundOrder = orderModel.get();
-            foundOrder.setTotalCost(orderDto.getTotalCost());
-            List<OrderLineModel> orderLineModels = new ArrayList<>();
+            List<OrderLineModel> orderLineModels = foundOrder.getOrderLineModels();
 
-            for (OrderLineDto orderLineDto : orderDto.getOrderLineDtoModels()) {
-                OrderLineModel orderLineModel = new OrderLineModel();
-                orderLineModel.setQuantity(orderLineDto.getQuantity());
-
-                ProductModel productModel = new ProductModel();
-                productModel.setName(orderLineDto.getProductDto().getName());
-                productModel.setPrice(orderLineDto.getProductDto().getPrice());
-                orderLineModel.setProductModel(productModel);
-                orderLineModels.add(orderLineModel);
+            for (OrderLineModel orderLineModel: orderLineModels){
+                if(orderLineModel.getId().equals(orderLineID)){
+                    if(newQuantity == 0){
+                        orderLineModels.remove(orderLineModel);
+                    }else{
+                        orderLineModel.setQuantity(newQuantity);
+                        orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+                        orderLineRepository.save(orderLineModel);
+                    }break;
+                }
             }
-            foundOrder.setOrderLineModels(orderLineModels);
+
+            foundOrder.setTotalCost(totalCost(foundOrder.getOrderLineModels()));
             orderRepository.save(foundOrder);
         }
 
@@ -236,48 +242,5 @@ public class OrderService {
         return sum;
     }
 
-    public OrderDto deleteOrderLineById(String username, Long idOrderLine) {
-        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
-        OrderDto orderDto = new OrderDto();
 
-        if (orderModel.isPresent()) {
-            OrderModel foundOrderModel = orderModel.get();
-
-
-            List<OrderLineModel> orderLineModels = foundOrderModel.getOrderLineModels();
-            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
-
-            for (OrderLineModel orderLineModel : orderLineModels) {
-                if (orderLineModel.getId().equals(idOrderLine)) {
-                    orderLineModels.remove(orderLineModel);
-                }
-                OrderLineDto orderLineDto = new OrderLineDto();
-                orderLineDto.setId((orderLineModel.getId()));
-                orderLineDto.setPrice(orderLineModel.getPrice());
-                orderLineDto.setQuantity(orderLineModel.getQuantity());
-
-                orderDto.setId(foundOrderModel.getId());
-                orderDto.setTotalCost(foundOrderModel.getTotalCost());
-
-
-                ProductModel productModel = orderLineModel.getProductModel();
-                ProductDto productDto = new ProductDto();
-
-                productDto.setId(productModel.getId());
-                productDto.setPrice(productModel.getPrice());
-                productDto.setName(productModel.getName());
-
-                orderLineDto.setProductDto(productDto);
-                orderLineDtoList.add(orderLineDto);
-
-                orderDto.setOrderLineDtoModels(orderLineDtoList);
-
-
-            }
-            return orderDto;
-        }
-        return null;
-
-
-    }
 }
