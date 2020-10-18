@@ -36,6 +36,7 @@ public class ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setId(productModel.getId());
             productDto.setName(productModel.getName());
+            productDto.setPrice(productModel.getPrice());
 
 
             if (productModel.getManufacturerModel() != null) {
@@ -78,6 +79,7 @@ public class ProductService {
     public void addProduct(ProductDto productDto) {
         ProductModel productModel = new ProductModel();
         productModel.setName(productDto.getName());
+        productModel.setPrice(productDto.getPrice());
 
 
         ManufacturerDto manufacturerDto = productDto.getManufacturerDto();
