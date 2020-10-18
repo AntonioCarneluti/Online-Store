@@ -6,6 +6,7 @@ import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.model.OrderLineModel;
 import com.sda.onlinestore.model.OrderModel;
 import com.sda.onlinestore.model.ProductModel;
+import com.sda.onlinestore.repository.OrderLineRepository;
 import com.sda.onlinestore.repository.OrderRepository;
 import com.sda.onlinestore.repository.ProductRepository;
 
@@ -25,6 +26,9 @@ public class OrderService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderLineRepository orderLineRepository;
 
 
     public List<OrderDto> getOrders() {
@@ -156,15 +160,15 @@ public class OrderService {
                 }
             }
 
-                if (!isAdded) {
+            if (!isAdded) {
 
-                    OrderLineModel orderLineModel = new OrderLineModel();
-                    orderLineModel.setQuantity(1);
-                    ProductModel productModel = productRepository.findById(idProduct).orElse(null);
-                    orderLineModel.setProductModel(productModel);
-                    orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
-                    foundOrderModel.getOrderLineModels().add(orderLineModel);
-                }
+                OrderLineModel orderLineModel = new OrderLineModel();
+                orderLineModel.setQuantity(1);
+                ProductModel productModel = productRepository.findById(idProduct).orElse(null);
+                orderLineModel.setProductModel(productModel);
+                orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+                foundOrderModel.getOrderLineModels().add(orderLineModel);
+            }
 
             foundOrderModel.setTotalCost(totalCost(foundOrderModel.getOrderLineModels()));
             orderRepository.save(foundOrderModel);
@@ -205,24 +209,26 @@ public class OrderService {
         orderRepository.save(orderModel);
     }
 */
-    public void updateCart(OrderDto orderDto) {
-        Optional<OrderModel> orderModel = orderRepository.findById(orderDto.getId());
+    public void updateCart(String username, Long orderLineID, int newQuantity) {
+        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
         if (orderModel.isPresent()) {
+
             OrderModel foundOrder = orderModel.get();
-            foundOrder.setTotalCost(orderDto.getTotalCost());
-            List<OrderLineModel> orderLineModels = new ArrayList<>();
+            List<OrderLineModel> orderLineModels = foundOrder.getOrderLineModels();
 
-            for (OrderLineDto orderLineDto : orderDto.getOrderLineDtoModels()) {
-                OrderLineModel orderLineModel = new OrderLineModel();
-                orderLineModel.setQuantity(orderLineDto.getQuantity());
-
-                ProductModel productModel = new ProductModel();
-                productModel.setName(orderLineDto.getProductDto().getName());
-                productModel.setPrice(orderLineDto.getProductDto().getPrice());
-                orderLineModel.setProductModel(productModel);
-                orderLineModels.add(orderLineModel);
+            for (OrderLineModel orderLineModel: orderLineModels){
+                if(orderLineModel.getId().equals(orderLineID)){
+                    if(newQuantity == 0){
+                        orderLineModels.remove(orderLineModel);
+                    }else{
+                        orderLineModel.setQuantity(newQuantity);
+                        orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+                        orderLineRepository.save(orderLineModel);
+                    }break;
+                }
             }
-            foundOrder.setOrderLineModels(orderLineModels);
+
+            foundOrder.setTotalCost(totalCost(foundOrder.getOrderLineModels()));
             orderRepository.save(foundOrder);
         }
 
@@ -235,8 +241,6 @@ public class OrderService {
         }
         return sum;
     }
-
-
 
 
 }

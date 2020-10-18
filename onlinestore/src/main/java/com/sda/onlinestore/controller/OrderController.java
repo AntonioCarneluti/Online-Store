@@ -35,13 +35,20 @@ public class OrderController {
        return orderService.findByUserName(username);
     }
 
-    @PostMapping("/addOrder/{username}/{idProduct}")
+    /*@GetMapping("/orders/deleteOrderLineById/{username}/idOrderLine")
+    public OrderDto deleteOrderLineById(@PathVariable(name = "username") String username, @PathVariable(name = "idOrderLine")Long idOrderLine){
+        return orderService.deleteOrderLineById(username, idOrderLine);
+    }*/
+
+    @GetMapping("/addOrder/{username}/{idProduct}")
     public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
         orderService.addToCart(username, idProduct);
     }
 
-    @PutMapping("/updateOrder")
-    public void updateOrder(@RequestBody OrderDto orderDto){
-        orderService.updateCart(orderDto);
+    @GetMapping("/updateOrder/{username}/idOrderLine/newQuantity")
+    public void updateOrder(@PathVariable(name = "username") String username,
+                            @PathVariable(name = "idOrderLine") Long idOrderLine,
+                            @PathVariable(name = "newQuantity") int newQuantity){
+        orderService.updateCart(username, idOrderLine, newQuantity);
     }
 }
