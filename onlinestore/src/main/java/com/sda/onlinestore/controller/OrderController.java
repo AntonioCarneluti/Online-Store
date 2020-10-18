@@ -35,6 +35,11 @@ public class OrderController {
        return orderService.findByUserName(username);
     }
 
+    @GetMapping("/orders/deleteOrderLineById/{username}/idOrderLine")
+    public OrderDto deleteOrderLineById(@PathVariable(name = "username") String username, @PathVariable(name = "idOrderLine")Long idOrderLine){
+        return orderService.deleteOrderLineById(username, idOrderLine);
+    }
+
     @PostMapping("/addOrder/{username}/{idProduct}")
     public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
         orderService.addToCart(username, idProduct);

@@ -156,15 +156,15 @@ public class OrderService {
                 }
             }
 
-                if (!isAdded) {
+            if (!isAdded) {
 
-                    OrderLineModel orderLineModel = new OrderLineModel();
-                    orderLineModel.setQuantity(1);
-                    ProductModel productModel = productRepository.findById(idProduct).orElse(null);
-                    orderLineModel.setProductModel(productModel);
-                    orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
-                    foundOrderModel.getOrderLineModels().add(orderLineModel);
-                }
+                OrderLineModel orderLineModel = new OrderLineModel();
+                orderLineModel.setQuantity(1);
+                ProductModel productModel = productRepository.findById(idProduct).orElse(null);
+                orderLineModel.setProductModel(productModel);
+                orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+                foundOrderModel.getOrderLineModels().add(orderLineModel);
+            }
 
             foundOrderModel.setTotalCost(totalCost(foundOrderModel.getOrderLineModels()));
             orderRepository.save(foundOrderModel);
@@ -236,7 +236,48 @@ public class OrderService {
         return sum;
     }
 
+    public OrderDto deleteOrderLineById(String username, Long idOrderLine) {
+        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+        OrderDto orderDto = new OrderDto();
+
+        if (orderModel.isPresent()) {
+            OrderModel foundOrderModel = orderModel.get();
 
 
+            List<OrderLineModel> orderLineModels = foundOrderModel.getOrderLineModels();
+            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
 
+            for (OrderLineModel orderLineModel : orderLineModels) {
+                if (orderLineModel.getId().equals(idOrderLine)) {
+                    orderLineModels.remove(orderLineModel);
+                }
+                OrderLineDto orderLineDto = new OrderLineDto();
+                orderLineDto.setId((orderLineModel.getId()));
+                orderLineDto.setPrice(orderLineModel.getPrice());
+                orderLineDto.setQuantity(orderLineModel.getQuantity());
+
+                orderDto.setId(foundOrderModel.getId());
+                orderDto.setTotalCost(foundOrderModel.getTotalCost());
+
+
+                ProductModel productModel = orderLineModel.getProductModel();
+                ProductDto productDto = new ProductDto();
+
+                productDto.setId(productModel.getId());
+                productDto.setPrice(productModel.getPrice());
+                productDto.setName(productModel.getName());
+
+                orderLineDto.setProductDto(productDto);
+                orderLineDtoList.add(orderLineDto);
+
+                orderDto.setOrderLineDtoModels(orderLineDtoList);
+
+
+            }
+            return orderDto;
+        }
+        return null;
+
+
+    }
 }
