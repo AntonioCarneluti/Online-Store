@@ -187,42 +187,25 @@ public class OrderService {
 
     }
 
-    /*public void addToCart(String username, Long id){
-        OrderModel orderModel = orderRepository.findByUserName(username);
-        Optional<ProductModel> productModel = productRepository.findById(id);
-        List<OrderLineModel> orderLineModelList =  orderModel.getOrderLineModels();
 
-        if(productModel.isPresent()){
-            ProductModel foundProductModel = productModel.get();
-            for( OrderLineModel orderLineModel1:orderLineModelList ){
-                if(orderLineModel1.getProductModel().getId().equals(id)){
-                    orderLineModel1.setQuantity(orderLineModel1.getQuantity() + 1);
-                    orderLineModel1.setPrice(orderLineModel1.getQuantity()* orderLineModel1.getProductModel().getPrice());
-                }else{
-                    orderLineModel1.setProductModel(foundProductModel);
-                    orderLineModel1.setQuantity(1);
-                    orderLineModel1.setPrice(orderLineModel1.getQuantity()* orderLineModel1.getProductModel().getPrice());
-                }
-                orderModel.setOrderLineModels(orderLineModelList);
-            }
-        }
-        orderRepository.save(orderModel);
-    }
-*/
     public void updateCart(String username, Long orderLineID, int newQuantity) {
         Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+
         if (orderModel.isPresent()) {
 
             OrderModel foundOrder = orderModel.get();
             List<OrderLineModel> orderLineModels = foundOrder.getOrderLineModels();
 
+
             for (OrderLineModel orderLineModel: orderLineModels){
+
                 if(orderLineModel.getId().equals(orderLineID)){
                     if(newQuantity == 0){
                         orderLineModels.remove(orderLineModel);
                     }else{
                         orderLineModel.setQuantity(newQuantity);
                         orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
+
                         orderLineRepository.save(orderLineModel);
                     }break;
                 }
