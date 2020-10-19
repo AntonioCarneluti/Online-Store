@@ -64,7 +64,6 @@ public class ManufacturerService {
         Optional<ManufacturerModel> optionalManufacturerModel = manufacturerRepository.findById(manufacturerDto.getId());
         if (optionalManufacturerModel.isPresent()) {
             ManufacturerModel manufacturerModel = optionalManufacturerModel.get();
-            manufacturerDto.setId(manufacturerModel.getId());
             manufacturerModel.setName(manufacturerDto.getName());
             manufacturerRepository.save(manufacturerModel);
 
