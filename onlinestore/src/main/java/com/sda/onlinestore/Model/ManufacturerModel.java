@@ -16,7 +16,7 @@ public class ManufacturerModel {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturerModel", orphanRemoval = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manufacturerModel", orphanRemoval = false)
     @JsonIgnoreProperties("manufacturerModel")
     private List<ProductModel> productModelList = new ArrayList();
 

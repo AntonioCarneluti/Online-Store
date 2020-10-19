@@ -42,12 +42,14 @@ public class ProductService {
             if (productModel.getManufacturerModel() != null) {
                 ManufacturerDto manufacturerDto = new ManufacturerDto();
                 ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setId(manufacturerModel.getId());
                 manufacturerDto.setName(manufacturerModel.getName());
                 productDto.setManufacturerDto(manufacturerDto);
             }
             if (productModel.getCategoryModel() != null) {
                 CategoryDto categoryDto = new CategoryDto();
                 CategoryModel categoryModel = productModel.getCategoryModel();
+                categoryDto.setId(categoryModel.getId());
                 categoryDto.setName(categoryModel.getName());
                 productDto.setCategoryDto(categoryDto);
             }
@@ -66,15 +68,23 @@ public class ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setId(productModel.getId());
             productDto.setName(productModel.getName());
+            productDto.setPrice(productModel.getPrice());
 
 
             if (productModel.getManufacturerModel() != null) {
                 ManufacturerDto manufacturerDto = new ManufacturerDto();
                 ManufacturerModel manufacturerModel = productModel.getManufacturerModel();
+                manufacturerDto.setId(manufacturerModel.getId());
                 manufacturerDto.setName(manufacturerModel.getName());
-
-
                 productDto.setManufacturerDto(manufacturerDto);
+             }
+
+            if (productModel.getCategoryModel() != null) {
+                CategoryDto categoryDto = new CategoryDto();
+                CategoryModel categoryModel = productModel.getCategoryModel();
+                categoryDto.setId(categoryModel.getId());
+                categoryDto.setName(categoryModel.getName());
+                productDto.setCategoryDto(categoryDto);
             }
 
             return productDto;
@@ -110,12 +120,16 @@ public class ProductService {
         Optional<ProductModel> optionalProductModel = productRepository.findById(productDto.getId());
         if (optionalProductModel.isPresent()) {
             ProductModel productModel = optionalProductModel.get();
-            productDto.setId(productModel.getId());
+
             productModel.setName(productDto.getName());
             productModel.setPrice(productDto.getPrice());
-            productRepository.save(productModel);
 
+            ManufacturerModel manufacturerModel = manufacturerRepository.findById(productDto.getManufacturerDto().getId()).orElse(null);
+            productModel.setManufacturerModel(manufacturerModel);
+            CategoryModel categoryModel = categoryRepository.findById(productDto.getCategoryDto().getId()).orElse(null);
+            productModel.setCategoryModel(categoryModel);
+
+            productRepository.save(productModel);
         }
     }
-
 }
