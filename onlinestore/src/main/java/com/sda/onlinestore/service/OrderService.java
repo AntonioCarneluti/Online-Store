@@ -187,7 +187,6 @@ public class OrderService {
 
     }
 
-
     public void updateCart(String username, Long orderLineID, int newQuantity) {
         Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
 
@@ -216,6 +215,10 @@ public class OrderService {
         }
 
     }
+
+    /*public void deleteOrderLine(String username, Long orderLineId){
+        updateCart(username, orderLineId, 0);
+    }*/
 
     private double totalCost(List<OrderLineModel> orderLineModels) {
         double sum = 0D;

@@ -3,6 +3,7 @@ package com.sda.onlinestore.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -23,6 +24,18 @@ public class UserModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("userModelList")
     private UserRole userRole;
+
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnoreProperties("userModel")
+    private List<OrderModel> orders;
+
+    public List<OrderModel> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderModel> orders) {
+        this.orders = orders;
+    }
 
     public UserModel() {
     }

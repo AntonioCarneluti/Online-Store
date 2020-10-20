@@ -29,7 +29,7 @@ public class OrderModel {
     @OneToOne
     private AddressModel deliveryAddress;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserModel userModel;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true )

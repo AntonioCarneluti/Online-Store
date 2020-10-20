@@ -49,6 +49,12 @@ public class OrderController {
     public void updateOrder(@PathVariable(name = "username") String username,
                             @PathVariable(name = "idOrderLine") Long idOrderLine,
                             @PathVariable(name = "newQuantity") int newQuantity){
-        orderService.updateCart(username, idOrderLine, newQuantity);
+          orderService.updateCart(username, idOrderLine, newQuantity);
     }
+
+    /*@GetMapping("/updateOrder/{username}/{idOrderLine}")
+    public void updateOrderLineFromOrder(@PathVariable(name = "username") String username,
+                                         @PathVariable(name = "idOrderLine") Long idOrderLine){
+        orderService.deleteOrderLine(username, idOrderLine);
+    }*/
 }
