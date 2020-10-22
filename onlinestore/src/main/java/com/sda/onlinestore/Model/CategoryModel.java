@@ -15,7 +15,7 @@ public class CategoryModel {
     private String name;
     @ManyToOne(cascade = CascadeType.ALL)
     private CategoryModel parent;
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent",  orphanRemoval = false)
     private List<CategoryModel> children = new ArrayList<>();
 
 
