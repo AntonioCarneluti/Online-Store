@@ -13,6 +13,7 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole", orphanRemoval = false)
     @JsonIgnoreProperties("userRole")
     private List<UserModel> userModelList = new ArrayList();
