@@ -6,10 +6,12 @@ import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.model.OrderLineModel;
 import com.sda.onlinestore.model.OrderModel;
 import com.sda.onlinestore.model.ProductModel;
+import com.sda.onlinestore.model.Status;
 import com.sda.onlinestore.repository.OrderLineRepository;
 import com.sda.onlinestore.repository.OrderRepository;
 import com.sda.onlinestore.repository.ProductRepository;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,7 +108,7 @@ public class OrderService {
     }
 
     public OrderDto findByUserName(String username) {
-        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+        Optional<OrderModel> orderModel = orderRepository.findByUserNameAndStatus(username, Status.NOT_CONFIRMED);
         OrderDto orderDto = new OrderDto();
 
         if (orderModel.isPresent()) {
@@ -145,7 +147,10 @@ public class OrderService {
 
 
     public void addToCart(String username, Long idProduct) {
-        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+
+        //Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+
+        Optional<OrderModel> orderModel = orderRepository.findByUserNameAndStatus(username, Status.NOT_CONFIRMED);
         boolean isAdded = false;
 
         if (orderModel.isPresent()) {
@@ -170,10 +175,11 @@ public class OrderService {
                 foundOrderModel.getOrderLineModels().add(orderLineModel);
             }
 
-            foundOrderModel.setTotalCost(totalCost(foundOrderModel.getOrderLineModels()));
+            foundOrderModel.setTotalCost(totalCost(foundOrderModel.getOrderLineModels()) );
             orderRepository.save(foundOrderModel);
         } else {
             OrderModel orderModel1 = new OrderModel();
+            orderModel1.setStatus(Status.NOT_CONFIRMED);
             OrderLineModel orderLineModel = new OrderLineModel();
             orderLineModel.setQuantity(1);
             orderModel1.setUserName(username);
@@ -181,14 +187,14 @@ public class OrderService {
             orderLineModel.setProductModel(productModel);
             orderLineModel.setPrice(orderLineModel.getQuantity() * orderLineModel.getProductModel().getPrice());
             orderModel1.getOrderLineModels().add(orderLineModel);
-            orderModel1.setTotalCost(totalCost(orderModel1.getOrderLineModels()));
+            orderModel1.setTotalCost(totalCost(orderModel1.getOrderLineModels()) );
             orderRepository.save(orderModel1);
         }
 
     }
 
     public void updateCart(String username, Long orderLineID, int newQuantity) {
-        Optional<OrderModel> orderModel = orderRepository.findByUserName(username);
+        Optional<OrderModel> orderModel = orderRepository.findByUserNameAndStatus(username, Status.NOT_CONFIRMED);
 
         if (orderModel.isPresent()) {
 
@@ -216,9 +222,49 @@ public class OrderService {
 
     }
 
-    /*public void deleteOrderLine(String username, Long orderLineId){
-        updateCart(username, orderLineId, 0);
-    }*/
+    //metoda de placeOrder imi scoate din cos toate comenzile care au Status: Confirmed
+
+    public OrderDto placeOrder(Long orderID ){
+        Optional<OrderModel> optionalOrderModel = orderRepository.findById(orderID);
+        OrderDto orderDto = new OrderDto();
+
+
+
+        if(optionalOrderModel.isPresent()){
+            OrderModel foundOrder = optionalOrderModel.get();
+            foundOrder.setStatus(Status.CONFIRMED);
+            orderRepository.save(foundOrder);
+
+
+            orderDto.setId(foundOrder.getId());
+            orderDto.setTotalCost(foundOrder.getTotalCost());
+
+            List<OrderLineModel> orderLineModels = foundOrder.getOrderLineModels();
+            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
+
+            for(OrderLineModel orderLineModel: orderLineModels){
+                OrderLineDto orderLineDto = new OrderLineDto();
+
+                orderLineDto.setId(orderLineModel.getId());
+                orderLineDto.setQuantity(orderLineModel.getQuantity());
+                orderLineDto.setPrice(orderLineModel.getPrice());
+
+                ProductDto productDto = new ProductDto();
+                productDto.setId(orderLineModel.getProductModel().getId());
+                productDto.setName(orderLineModel.getProductModel().getName());
+                productDto.setPrice(orderLineModel.getProductModel().getPrice());
+
+                orderLineDto.setProductDto(productDto);
+                orderLineDtoList.add(orderLineDto);
+            }
+
+            orderDto.setOrderLineDtoModels(orderLineDtoList);
+            orderDto.setStatus(foundOrder.getStatus().name());
+        }
+        return  orderDto;
+    }
+
+
 
     private double totalCost(List<OrderLineModel> orderLineModels) {
         double sum = 0D;

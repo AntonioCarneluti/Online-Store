@@ -45,7 +45,7 @@ public class OrderController {
         orderService.addToCart(username, idProduct);
     }
 
-    @GetMapping("/updateOrder/{username}/{idOrderLine}/{newQuantity}")
+    @PutMapping("/updateOrder/{username}/{idOrderLine}/{newQuantity}")
     public void updateOrder(@PathVariable(name = "username") String username,
                             @PathVariable(name = "idOrderLine") Long idOrderLine,
                             @PathVariable(name = "newQuantity") int newQuantity){
@@ -57,4 +57,9 @@ public class OrderController {
                                          @PathVariable(name = "idOrderLine") Long idOrderLine){
         orderService.deleteOrderLine(username, idOrderLine);
     }*/
+
+    @GetMapping("/placeOrder/{orderId}")
+    public OrderDto placeOrder(@PathVariable(name = "orderId") Long orderId){
+        return orderService.placeOrder(orderId);
+    }
 }
