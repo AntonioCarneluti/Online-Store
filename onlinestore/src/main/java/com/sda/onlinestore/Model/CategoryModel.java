@@ -13,9 +13,9 @@ public class CategoryModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private CategoryModel parent;
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent",  orphanRemoval = false, cascade = CascadeType.ALL)
     private List<CategoryModel> children = new ArrayList<>();
 
 

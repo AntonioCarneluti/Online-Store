@@ -1,6 +1,5 @@
 package com.sda.onlinestore.controller;
 
-import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.dto.UserDto;
 import com.sda.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
 
     @PostMapping("/addUser")
     public void addUser(@RequestBody UserDto userDto){
