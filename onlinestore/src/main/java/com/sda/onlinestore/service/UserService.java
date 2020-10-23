@@ -21,9 +21,9 @@ public class UserService {
     public void addUser(UserDto userDto) {
         UserModel userModel = new UserModel();
         userModel.setEmail(userDto.getEmail());
+        userModel.setUsername(userDto.getUsername());
         userModel.setPassword(userDto.getPassword());
-        userModel.setLogo(userDto.getLogo());
-        userModel.setChannel(userDto.getChannel());
+
 
         AddressModel addressModel = new AddressModel();
         AddressDto addressDto = userDto.getAddressDto();
@@ -44,9 +44,9 @@ public class UserService {
             UserDto userDto = new UserDto();
             userDto.setId(userModel.getId());
             userDto.setEmail(userModel.getEmail());
+            userDto.setUsername(userModel.getUsername());
             userDto.setPassword(userModel.getPassword());
-            userDto.setLogo(userModel.getLogo());
-            userDto.setChannel(userModel.getChannel());
+
 
             AddressDto addressDto = new AddressDto();
             AddressModel addressModel = userModel.getAddressModel();
@@ -68,9 +68,9 @@ public class UserService {
         if (optionalUserModel.isPresent()) {
             UserModel userModel = optionalUserModel.get();
             userModel.setEmail(userDto.getEmail());
+            userModel.setUsername(userDto.getUsername());
             userModel.setPassword(userDto.getPassword());
-            userModel.setLogo(userDto.getLogo());
-            userModel.setChannel(userDto.getChannel());
+
 
             AddressModel addressModel = new AddressModel();
             AddressDto addressDto = userDto.getAddressDto();
@@ -91,9 +91,36 @@ public class UserService {
             UserDto userDto = new UserDto();
             userDto.setId(userModel.getId());
             userDto.setEmail(userModel.getEmail());
+            userDto.setUsername(userModel.getUsername());
             userDto.setPassword(userModel.getPassword());
-            userDto.setLogo(userModel.getLogo());
-            userDto.setChannel(userModel.getChannel());
+
+
+            AddressDto addressDto = new AddressDto();
+            AddressModel addressModel = userModel.getAddressModel();
+            if(addressDto != null) {
+                addressDto.setId(addressModel.getId());
+                addressDto.setCountry(addressModel.getCountry());
+                addressDto.setCity(addressModel.getCity());
+                addressDto.setStreet(addressModel.getStreet());
+                addressDto.setZipCode(addressModel.getZipCode());
+            }
+
+            userDto.setAddressDto(addressDto);
+            return userDto;
+        }
+        return null;
+    }
+
+    public UserDto findUserByUsername(String username) {
+        Optional<UserModel> optionalUserModel = userRepository.getUserModelByUsername(username);
+        if (optionalUserModel.isPresent()) {
+            UserModel userModel = optionalUserModel.get();
+            UserDto userDto = new UserDto();
+            userDto.setId(userModel.getId());
+            userDto.setEmail(userModel.getEmail());
+            userDto.setUsername(userModel.getUsername());
+            userDto.setPassword(userModel.getPassword());
+
 
             AddressDto addressDto = new AddressDto();
             AddressModel addressModel = userModel.getAddressModel();

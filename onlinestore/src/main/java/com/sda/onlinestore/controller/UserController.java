@@ -1,5 +1,6 @@
 package com.sda.onlinestore.controller;
 
+import com.sda.onlinestore.common.utils.AuthenticationBean;
 import com.sda.onlinestore.dto.UserDto;
 import com.sda.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+
+    @GetMapping(path = "/basicauth")
+    public AuthenticationBean basicauth() {
+        return new AuthenticationBean("You are authenticated");
+    }
 
     @PostMapping("/addUser")
     public void addUser(@RequestBody UserDto userDto){
@@ -32,6 +39,11 @@ public class UserController {
     @GetMapping("/getUserById/{id}")
     public UserDto findByID(@PathVariable(name = "id") Long id){
         return userService.findUserById(id);
+    }
+
+    @GetMapping("/getUserByUsername/{username}")
+    public UserDto findByUsername(@PathVariable(name = "username") String username){
+        return userService.findUserByUsername(username);
     }
 
 

@@ -1,12 +1,14 @@
 package com.sda.onlinestore.dto;
 
+import com.sda.onlinestore.common.utils.Hasher;
+
 public class UserDto {
     private Long id;
     private String email;
+    private String username;
     private String password;
     private AddressDto addressDto;
-    private String logo;
-    private String channel;
+
 
     public Long getId() {
         return id;
@@ -29,7 +31,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Hasher.encode(password);
     }
 
     public AddressDto getAddressDto() {
@@ -40,19 +42,11 @@ public class UserDto {
         this.addressDto = addressDto;
     }
 
-    public String getLogo() {
-        return logo;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getChannel() {
-        return channel;
-    }
-
-    public void setChannel(String channel) {
-        this.channel = channel;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -1,6 +1,7 @@
 package com.sda.onlinestore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sda.onlinestore.common.utils.Hasher;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,13 +24,16 @@ public class UserModel {
     private String logo;
     private String channel;
 
+    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("userModelList")
     private UserRole userRole;
 
+
+     */
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnoreProperties("userModel")
-    private List<OrderModel> orders;
+    private List<OrderModel> orders; // -> un order format din mai multe orderline-uri , order = cart?
 
     public List<OrderModel> getOrders() {
         return orders;
@@ -71,7 +75,7 @@ public class UserModel {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Hasher.encode(password);
     }
 
     public AddressModel getAddressModel() {
@@ -97,7 +101,7 @@ public class UserModel {
     public void setChannel(String channel) {
         this.channel = channel;
     }
-
+/*
     public UserRole getUserRole() {
         return userRole;
     }
@@ -105,4 +109,6 @@ public class UserModel {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
+
+ */
 }
