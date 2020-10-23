@@ -57,6 +57,14 @@ public class CategoryService {
         if (optionalCategoryModel.isPresent()) {
             CategoryModel categoryModel = optionalCategoryModel.get();
             categoryModel.setName(categoryDto.getName());
+            CategoryDto parentDto = categoryDto.getParent();
+            if (parentDto != null) {
+                Optional<CategoryModel> parentCategoryModelOptional = categoryRepository.findById(parentDto.getId());
+                if (parentCategoryModelOptional.isPresent()) {
+                    CategoryModel parentCategoryModel = parentCategoryModelOptional.get();
+                    categoryModel.setParent(parentCategoryModel);
+                }
+            }
             categoryRepository.save(categoryModel);
         }
     }
