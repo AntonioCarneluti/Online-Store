@@ -44,6 +44,7 @@ public class OrderService {
             OrderDto orderDto = new OrderDto();
             orderDto.setId(orderModel.getId());
             orderDto.setTotalCost(orderModel.getTotalCost());
+            orderDto.setStatus(orderModel.getStatus().name());
 
             List<OrderLineModel> orderLineModels = orderModel.getOrderLineModels();
             List<OrderLineDto> orderLineDtoList = new ArrayList<>();
@@ -79,6 +80,7 @@ public class OrderService {
 
         orderDto.setId(orderModel.getId());
         orderDto.setTotalCost(orderModel.getTotalCost());
+        orderDto.setStatus(orderModel.getStatus().name());
 
         List<OrderLineModel> orderLineModels = orderModel.getOrderLineModels();
         List<OrderLineDto> orderLineDtoList = new ArrayList<>();
@@ -119,6 +121,7 @@ public class OrderService {
 
             orderDto.setId(foundOrderModel.getId());
             orderDto.setTotalCost(foundOrderModel.getTotalCost());
+            orderDto.setStatus(foundOrderModel.getStatus().name());
 
             List<OrderLineModel> orderLineModels = foundOrderModel.getOrderLineModels();
             List<OrderLineDto> orderLineDtoList = new ArrayList<>();
