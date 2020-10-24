@@ -34,8 +34,9 @@ public class OrderController {
         orderService.removeOrder(idOrder);
     }
 
-    @GetMapping("/orders/getByUsername/{username}")
-    public OrderDto getByUsername(@PathVariable(name = "username") String username){
+    @GetMapping("/orders/getByUsername")
+    public OrderDto getByUsername(){
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        return orderService.findByUserName(username);
     }
 
@@ -48,15 +49,15 @@ public class OrderController {
    // public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
    @GetMapping("/addOrder/{idProduct}")
    public void addOrder(@PathVariable(name = "idProduct") Long idProduct){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        orderService.addToCart(user.getUsername(), idProduct);
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        orderService.addToCart(username, idProduct);
         //(SecurityProperties.User)
     }
 
-    @PutMapping("/updateOrder/{username}/{idOrderLine}/{newQuantity}")
-    public void updateOrder(@PathVariable(name = "username") String username,
-                            @PathVariable(name = "idOrderLine") Long idOrderLine,
+    @PutMapping("/updateOrder/{idOrderLine}/{newQuantity}")
+    public void updateOrder(@PathVariable(name = "idOrderLine") Long idOrderLine,
                             @PathVariable(name = "newQuantity") int newQuantity){
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
           orderService.updateCart(username, idOrderLine, newQuantity);
     }
 
