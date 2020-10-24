@@ -12,10 +12,11 @@ public class OrderDto {
 
     private double totalCost;
 
+    private String status;
 
     private List<OrderLineDto> orderLineDtoModels = new ArrayList<>();
 
-    private String status;
+
 
 
 
