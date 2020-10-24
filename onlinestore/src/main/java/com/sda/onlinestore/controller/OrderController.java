@@ -44,8 +44,10 @@ public class OrderController {
         return orderService.deleteOrderLineById(username, idOrderLine);
     }*/
 
-    @GetMapping("/addOrder/{username}/{idProduct}")
-    public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
+   // @GetMapping("/addOrder/{username}/{idProduct}")
+   // public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
+   @GetMapping("/addOrder/{idProduct}")
+   public void addOrder(@PathVariable(name = "idProduct") Long idProduct){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.addToCart(user.getUsername(), idProduct);
         //(SecurityProperties.User)
