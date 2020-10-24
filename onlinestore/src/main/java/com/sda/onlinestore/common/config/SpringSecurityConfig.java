@@ -27,11 +27,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
-                .permitAll();
-              //  .anyRequest()
-               // .authenticated()
-               // .and()
-              //  .httpBasic();
+                .permitAll()
+                .anyRequest()// de aici in jos sa pui // daca nu merge ceva
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
 }
