@@ -4,6 +4,10 @@ import com.sda.onlinestore.dto.OrderDto;
 import com.sda.onlinestore.model.OrderModel;
 import com.sda.onlinestore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +46,9 @@ public class OrderController {
 
     @GetMapping("/addOrder/{username}/{idProduct}")
     public void addOrder(@PathVariable(name = "username")String username,@PathVariable(name = "idProduct") Long idProduct){
-        orderService.addToCart(username, idProduct);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        orderService.addToCart(user.getUsername(), idProduct);
+        //(SecurityProperties.User)
     }
 
     @PutMapping("/updateOrder/{username}/{idOrderLine}/{newQuantity}")
