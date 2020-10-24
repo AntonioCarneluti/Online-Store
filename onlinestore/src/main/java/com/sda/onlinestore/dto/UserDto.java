@@ -31,7 +31,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password = Hasher.encode(password);
+        this.password = password;
     }
 
     public AddressDto getAddressDto() {
