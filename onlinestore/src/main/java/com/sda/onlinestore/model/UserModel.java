@@ -15,6 +15,7 @@ public class UserModel {
     private String email;
     private String username;
     private String password;
+    private String userRole;
 
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -24,11 +25,11 @@ public class UserModel {
     private String logo;
     private String channel;
 
-
+/*
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("userModelList")
     private UserRole userRole;
-
+*/
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnoreProperties("userModel")
@@ -101,6 +102,14 @@ public class UserModel {
         this.channel = channel;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+    /*
     public UserRole getUserRole() {
         return userRole;
     }
@@ -108,6 +117,6 @@ public class UserModel {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-
+*/
 
 }

@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "UserRoles")
+
 public class UserRole {
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -45,4 +45,6 @@ public class UserRole {
         this.userModelList = userModelList;
     }
 
+
+ */
 }

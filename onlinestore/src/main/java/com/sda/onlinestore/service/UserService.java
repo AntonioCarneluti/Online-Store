@@ -35,10 +35,7 @@ public class UserService {
             addressModel.setZipCode(addressDto.getZipCode());
         }
         userModel.setAddressModel(addressModel);
-
-        UserRole userRole = new UserRole();
-        userRole.setName("USER");
-        userModel.setUserRole(userRole);
+        userModel.setUserRole("USER");
         userRepository.save(userModel);
     }
 

@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             UserModel userModel = userRepository.getUserModelByUsername(name).orElse(null);
             Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + userModel.getUserRole().getName());
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + userModel.getUserRole());
             authorities.add(simpleGrantedAuthority);
 
             return new UsernamePasswordAuthenticationToken(

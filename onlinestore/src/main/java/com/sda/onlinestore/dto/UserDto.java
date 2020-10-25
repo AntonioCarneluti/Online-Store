@@ -8,7 +8,7 @@ public class UserDto {
     private String username;
     private String password;
     private AddressDto addressDto;
-    private UserRoleDto userRoleDto;
+    private String userRoleDto;
 
 
     public Long getId() {
@@ -51,11 +51,11 @@ public class UserDto {
         this.username = username;
     }
 
-    public UserRoleDto getUserRoleDto() {
+    public String getUserRoleDto() {
         return userRoleDto;
     }
 
-    public void setUserRoleDto(UserRoleDto userRoleDto) {
+    public void setUserRoleDto(String userRoleDto) {
         this.userRoleDto = userRoleDto;
     }
 }
