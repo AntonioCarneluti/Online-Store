@@ -5,6 +5,7 @@ import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.model.ProductModel;
 import com.sda.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ProductController {
 
 
     @PostMapping("/addProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public void addProduct(@RequestBody ProductDto productDto){
         productService.addProduct(productDto);
     }
@@ -36,11 +38,13 @@ public class ProductController {
 
 
     @DeleteMapping("/deleteProduct/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteProduct(@PathVariable(name = "id") Long id){
         productService.deleteProduct(id);
     }
 
     @PutMapping("/updateProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateProduct(@RequestBody ProductDto productDto) {
        productService.updateProduct(productDto);
     }

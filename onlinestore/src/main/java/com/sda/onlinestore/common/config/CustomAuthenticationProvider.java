@@ -9,9 +9,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -30,8 +33,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             // use the credentials
             // and authenticate against the third-party system
+
+            UserModel userModel = userRepository.getUserModelByUsername(name).orElse(null);
+            Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + userModel.getUserRole().getName());
+            authorities.add(simpleGrantedAuthority);
+
             return new UsernamePasswordAuthenticationToken(
-                    name, password, new ArrayList<>());
+                    name, password, authorities);
         } else {
             return null;
         }

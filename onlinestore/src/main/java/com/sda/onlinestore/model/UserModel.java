@@ -24,13 +24,12 @@ public class UserModel {
     private String logo;
     private String channel;
 
-    /*
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("userModelList")
     private UserRole userRole;
 
 
-     */
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnoreProperties("userModel")
     private List<OrderModel> orders; // -> un order format din mai multe orderline-uri , order = cart?
@@ -101,7 +100,7 @@ public class UserModel {
     public void setChannel(String channel) {
         this.channel = channel;
     }
-/*
+
     public UserRole getUserRole() {
         return userRole;
     }
@@ -110,5 +109,5 @@ public class UserModel {
         this.userRole = userRole;
     }
 
- */
+
 }

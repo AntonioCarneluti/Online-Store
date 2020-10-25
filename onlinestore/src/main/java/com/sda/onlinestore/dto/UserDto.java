@@ -8,6 +8,7 @@ public class UserDto {
     private String username;
     private String password;
     private AddressDto addressDto;
+    private UserRoleDto userRoleDto;
 
 
     public Long getId() {
@@ -48,5 +49,13 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public UserRoleDto getUserRoleDto() {
+        return userRoleDto;
+    }
+
+    public void setUserRoleDto(UserRoleDto userRoleDto) {
+        this.userRoleDto = userRoleDto;
     }
 }

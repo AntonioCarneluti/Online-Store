@@ -2,8 +2,10 @@ package com.sda.onlinestore.service;
 
 import com.sda.onlinestore.dto.AddressDto;
 import com.sda.onlinestore.dto.UserDto;
+import com.sda.onlinestore.dto.UserRoleDto;
 import com.sda.onlinestore.model.AddressModel;
 import com.sda.onlinestore.model.UserModel;
+import com.sda.onlinestore.model.UserRole;
 import com.sda.onlinestore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,6 @@ public class UserService {
         userModel.setUsername(userDto.getUsername());
         userModel.setPassword(userDto.getPassword());
 
-
         AddressModel addressModel = new AddressModel();
         AddressDto addressDto = userDto.getAddressDto();
         if(addressDto != null) {
@@ -34,6 +35,10 @@ public class UserService {
             addressModel.setZipCode(addressDto.getZipCode());
         }
         userModel.setAddressModel(addressModel);
+
+        UserRole userRole = new UserRole();
+        userRole.setName("USER");
+        userModel.setUserRole(userRole);
         userRepository.save(userModel);
     }
 

@@ -4,6 +4,7 @@ import com.sda.onlinestore.dto.CategoryDto;
 import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CategoryController {
 
 
     @PostMapping("/addCategory")
+    @PreAuthorize("hasRole('ADMIN')")
     public void addCategory(@RequestBody CategoryDto categoryDto) {
         categoryService.addCategory(categoryDto);
     }
@@ -27,6 +29,7 @@ public class CategoryController {
     }
 
     @PutMapping("/updateCategory")
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateCategory(@RequestBody CategoryDto categoryDto) {
         categoryService.updateCategory(categoryDto);
     }
@@ -38,6 +41,7 @@ public class CategoryController {
 
 
     @DeleteMapping("/deleteCategory/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteCategory(@PathVariable(name = "id") Long id) {
         categoryService.deleteCategory(id);
     }

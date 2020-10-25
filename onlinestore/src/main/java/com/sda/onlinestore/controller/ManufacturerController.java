@@ -5,6 +5,7 @@ import com.sda.onlinestore.dto.ProductDto;
 import com.sda.onlinestore.service.ManufacturerService;
 import com.sda.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ManufacturerController {
 
 
     @PostMapping("/addManufacturer")
+    @PreAuthorize("hasRole('ADMIN')")
     public void addProduct(@RequestBody ManufacturerDto manufacturerDto){
         manufacturerService.addManufacturer(manufacturerDto);
     }
@@ -36,11 +38,13 @@ public class ManufacturerController {
 
 
     @DeleteMapping("/deleteManufacturer/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteManufacturer(@PathVariable(name = "id") Long id){
         manufacturerService.deleteProduct(id);
     }
 
     @PutMapping("/updateManufacturer")
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateManufacturer(@RequestBody ManufacturerDto manufacturerDto) {
         manufacturerService.updateManufacturer(manufacturerDto);
     }

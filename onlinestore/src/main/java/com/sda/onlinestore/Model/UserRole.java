@@ -13,13 +13,11 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-/*
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole", orphanRemoval = false)
     @JsonIgnoreProperties("userRole")
     private List<UserModel> userModelList = new ArrayList();
 
-
- */
     public UserRole() {
     }
 
@@ -38,7 +36,7 @@ public class UserRole {
     public void setName(String name) {
         this.name = name;
     }
-/*
+
     public List<UserModel> getUserModelList() {
         return userModelList;
     }
@@ -47,6 +45,4 @@ public class UserRole {
         this.userModelList = userModelList;
     }
 
-
- */
 }
