@@ -276,8 +276,11 @@ public class OrderService {
         double sum = 0D;
         for (OrderLineModel orderLineModel : orderLineModels) {
             sum += orderLineModel.getProductModel().getPrice() * orderLineModel.getQuantity();
-        }
-        return sum;
+        }/*if(sum < 50) {
+
+            return sum + 10;
+        }else*/
+            return sum;
     }
 
 
