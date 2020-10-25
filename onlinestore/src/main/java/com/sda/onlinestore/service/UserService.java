@@ -48,6 +48,7 @@ public class UserService {
             userDto.setEmail(userModel.getEmail());
             userDto.setUsername(userModel.getUsername());
             userDto.setPassword(userModel.getPassword());
+            userDto.setUserRoleDto(userModel.getUserRole());
 
 
             AddressDto addressDto = new AddressDto();
@@ -72,6 +73,7 @@ public class UserService {
             userModel.setEmail(userDto.getEmail());
             userModel.setUsername(userDto.getUsername());
             userModel.setPassword(userDto.getPassword());
+            userModel.setUserRole(userDto.getUserRoleDto());
 
 
             AddressModel addressModel = new AddressModel();
@@ -95,6 +97,7 @@ public class UserService {
             userDto.setEmail(userModel.getEmail());
             userDto.setUsername(userModel.getUsername());
             userDto.setPassword(userModel.getPassword());
+            userDto.setUserRoleDto(userModel.getUserRole());
 
 
             AddressDto addressDto = new AddressDto();
@@ -122,6 +125,7 @@ public class UserService {
             userDto.setEmail(userModel.getEmail());
             userDto.setUsername(userModel.getUsername());
             userDto.setPassword(userModel.getPassword());
+            userDto.setUserRoleDto(userModel.getUserRole());
 
 
             AddressDto addressDto = new AddressDto();
