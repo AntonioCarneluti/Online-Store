@@ -144,4 +144,12 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void updateUserToAdmin (UserDto userDto) {
+        Optional<UserModel> optionalUserModel = userRepository.findById(userDto.getId());
+        if (optionalUserModel.isPresent()) {
+            UserModel userModel = optionalUserModel.get();
+            userModel.setUserRole("ADMIN");
+            userRepository.save(userModel);
+        }
+    }
 }

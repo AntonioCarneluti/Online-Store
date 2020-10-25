@@ -53,5 +53,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    @PutMapping("/updateUserToAdmin")
+    public void updateUserToAdmin(@RequestBody UserDto userDto){userService.updateUserToAdmin(userDto);}
 
 }
